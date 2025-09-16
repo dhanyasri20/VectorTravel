@@ -1,0 +1,63 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    }
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h2 class="mb-4">Manage Your Account</h2>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">
+                                <i class="bi bi-person-circle"></i> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">
+                                <i class="bi bi-envelope-fill"></i> Email
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">
+                                <i class="bi bi-key-fill"></i> Password
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">
+                                <i class="bi bi-shield-lock-fill"></i> Two-factor
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">
+                                <i class="bi bi-download"></i> Personal data
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-4">
+                    @if (!string.IsNullOrEmpty(ViewData["StatusMessage"] as string))
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @ViewData["StatusMessage"]
+                        </div>
+                    }
+                    @RenderBody()
+                </div>
+            </div> 
+        </div>
+    </div>
+</div> 
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}  

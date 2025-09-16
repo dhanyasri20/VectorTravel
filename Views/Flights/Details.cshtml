@@ -1,0 +1,37 @@
+﻿@model TravelBookingSystem.Models.Flight
+@{
+    ViewData["Title"] = "Flight Details";
+}
+
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Flight Details: @Model.Airline - @Model.FlightNumber</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">@Model.DepartureCity to @Model.ArrivalCity</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Airline</dt>
+                <dd class="col-sm-9">@Model.Airline</dd>
+
+                <dt class="col-sm-3">Aircraft</dt>
+                <dd class="col-sm-9">@Model.AircraftType</dd>
+
+                <dt class="col-sm-3">Departure Time</dt>
+                <dd class="col-sm-9">@Model.DepartureTime.ToString("dd MMM yyyy, hh:mm tt")</dd>
+
+                <dt class="col-sm-3">Arrival Time</dt>
+                <dd class="col-sm-9">@Model.ArrivalTime.ToString("dd MMM yyyy, hh:mm tt")</dd>
+
+                <dt class="col-sm-3">Price</dt>
+                <dd class="col-sm-9"><strong>₹ @Model.Price.ToString("N2")</strong></dd>
+            </dl>
+            <hr />
+            <a href="@Url.Action("Book", "Flights", new { flightId = Model.Id })" class="btn btn-success btn-lg">Book This Flight</a>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary btn-lg">Back to Home</a>
+        </div>
+    </div>
+
+</div> 

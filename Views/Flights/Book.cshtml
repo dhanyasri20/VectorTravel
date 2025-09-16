@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Confirm Booking";
+}
+
+<div class="container mt-4">
+
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0">Booking Confirmation</h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                @ViewBag.Message
+            </div>
+
+            <h4 class="mt-4">Select Payment Method</h4>
+            <p class="text-muted">You will be redirected to our secure payment partner to complete this transaction.</p>
+
+            <div class="row text-center mt-3">
+                <div class="col-md-3">
+                    <div class="border p-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo-vector.svg" alt="UPI" style="height: 50px;" />
+                        <p class="mt-2">UPI</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border p-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" style="height: 50px;" />
+                        <p class="mt-2">Credit/Debit Card</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border p-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Paypal_2014_logo.png" alt="PayPal" style="height: 50px;" />
+                        <p class="mt-2">PayPal</p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+
+</div> 

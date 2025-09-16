@@ -1,0 +1,487 @@
+﻿body {
+    background-color: #f8f9fa; /* A subtle, off-white/light gray background */
+    padding-top: 70px;
+}
+
+/* --- REVISED NAVBAR STYLES --- */
+.navbar:not(.navbar-scrolled) .nav-link,
+.navbar:not(.navbar-scrolled) .navbar-brand {
+    color: white !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.navbar {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-scrolled {
+    background-color: white !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+    .navbar-scrolled .nav-link,
+    .navbar-scrolled .navbar-brand {
+        color: #333 !important;
+        text-shadow: none;
+    }
+
+/* --- HOMEPAGE STYLES --- */
+.hero-section {
+    background: url('https://images.pexels.com/photos/13403941/pexels-photo-13403941.jpeg') no-repeat center center;
+    background-size: cover;
+    height: 60vh;
+    position: relative;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-top: -70px;
+}
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.search-form-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: -80px;
+    position: relative;
+    z-index: 3;
+}
+
+.offer-section {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+}
+
+.offer-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    border: none;
+    height: 100%;
+}
+
+    .offer-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .offer-card .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .offer-card .card-body {
+        position: relative;
+    }
+
+.offer-badge {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.collection-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    color: white;
+    height: 300px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+    .collection-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .collection-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .collection-card .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        padding: 20px;
+    }
+
+    .collection-card .badge {
+        font-size: 0.8rem;
+    }
+
+.spotlight-section {
+    position: relative;
+    padding: 100px 0;
+    color: white;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+    .spotlight-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+.spotlight-content {
+    position: relative;
+    z-index: 2;
+}
+
+    .spotlight-content .tagline {
+        font-size: 1.2rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .spotlight-content h2 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .spotlight-content .btn-spotlight {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 30px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+        .spotlight-content .btn-spotlight:hover {
+            background-color: #0056b3;
+        }
+
+/* --- FLIGHT RESULTS CARD STYLES --- */
+.flight-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    background-color: #fff;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+    .flight-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    .flight-card .airline-logo, .flight-card .flight-details, .flight-card .price-section {
+        padding: 1rem;
+    }
+
+    .flight-card .airline-logo {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .flight-card .flight-details {
+        flex-grow: 1;
+    }
+
+    .flight-card .price-section {
+        text-align: right;
+        border-left: 1px solid #e0e0e0;
+    }
+
+.price-section .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- TINY SLIDER CONTROLS --- */
+.tns-outer {
+    position: relative;
+}
+
+.tns-controls button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: white;
+    border: 2px solid #007bff;
+    color: #007bff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+}
+
+    .tns-controls button:hover {
+        background: #007bff;
+        color: white;
+    }
+
+    .tns-controls button[data-controls="prev"] {
+        left: -55px;
+    }
+
+    .tns-controls button[data-controls="next"] {
+        right: -55px;
+    }
+
+
+/* --- PACKAGE DETAILS PAGE STYLES --- */
+.package-header {
+    height: 50vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: -70px;
+}
+
+.package-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.package-header h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e7f1ff;
+    color: #0056b3;
+}
+
+.booking-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border: none;
+    overflow: hidden;
+}
+
+    .booking-card .card-header {
+        background-color: #0056b3;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        padding: 1rem;
+    }
+
+    .booking-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .booking-card .price {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #0056b3;
+        text-align: center;
+    }
+
+    .booking-card .price-tagline {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-top: -10px;
+        margin-bottom: 1.5rem;
+    }
+
+.inclusions-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+    .inclusions-list li {
+        margin-bottom: 8px;
+    }
+
+    .inclusions-list .bi {
+        color: #28a745;
+        margin-right: 10px;
+    }
+
+.btn-book-now {
+    background-image: linear-gradient(to right, #28a745, #218838);
+    color: white;
+    font-weight: bold;
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+    .btn-book-now:hover {
+        transform: scale(1.05);
+        color: white;
+    }
+.package-header .package-header-overlay {
+    transition: background-color 0.4s ease;
+}
+
+.package-header:hover .package-header-overlay {
+    background-color: rgba(0,0,0,0.3); /* Lighten overlay on hover */
+}
+
+/* Photo Gallery Styles */
+.photo-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+    .photo-gallery img {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+   }
+/* Custom styles for the Manage Account page */
+.card-header-pills .nav-link {
+    color: #555;
+    font-weight: 500;
+}
+
+    .card-header-pills .nav-link.active {
+        background-color: var(--bs-primary);
+        color: #fff;
+    }
+/* Styles for the new split-screen authentication pages */
+.vh-100 {
+    min-height: 100vh;
+}
+
+.bg-image-split {
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1500835556837-99ac94a94552?q=80&w=1887&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center center;
+}
+/* Styles for Holiday Package Details Page */
+.package-hero {
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #0d6efd;
+}
+/* Make the main content start below the navbar */
+body {
+    padding-top: 50px; /* Adjust if your navbar is taller or shorter */
+}
+
+/* --- Transparent Navbar Styles --- */ 
+.navbar-trans {
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+    border: none;
+}
+
+    .navbar-trans .navbar-brand,
+    .navbar-trans .nav-link {
+        color: white;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Adds a shadow to make text readable on any background */
+    }
+
+/* Style for the navbar AFTER scrolling */
+.navbar-scrolled {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e7e7e7;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+    .navbar-scrolled .navbar-brand,
+    .navbar-scrolled .nav-link {
+        color: #333 !important; /* Use !important to override other styles */
+        text-shadow: none;
+    }
+/* --- Minimal Navbar Styles --- */
+.navbar {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+    .navbar .navbar-brand {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .navbar .nav-link {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    } 

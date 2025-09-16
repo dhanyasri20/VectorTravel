@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="display-4">Book Your Next Adventure</h1>
+        <p class="lead">Find the best deals on flights, guaranteed.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+            <div class="search-form-card">
+                <h3 class="text-center mb-4">Search Flights ✈️</h3>
+                <form asp-controller="Flights" asp-action="Search" method="post">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-lg-3">
+                            <label for="departureCity" class="form-label fw-bold">From</label>
+                            <input type="text" id="departureCity" name="departureCity" class="form-control form-control-lg" placeholder="e.g., Delhi" required />
+                        </div>
+                        <div class="col-lg-3">
+                            <label for="arrivalCity" class="form-label fw-bold">To</label>
+                            <input type="text" id="arrivalCity" name="arrivalCity" class="form-control form-control-lg" placeholder="e.g., Mumbai" required />
+                        </div>
+                        <div class="col-lg-3">
+                            <label for="departureDate" class="form-label fw-bold">Date</label>
+                            <input id="departure-date" type="text" class="form-control form-control-lg" name="departureDate" placeholder="Select Date" required>
+                        </div>
+                        <div class="col-lg-3 d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    @if (ViewBag.TripOfTheWeek != null)
+    {
+        var trip = ViewBag.TripOfTheWeek;
+        <div class="spotlight-section" style="background-image: url('@trip.ImageUrl');">
+            <div class="spotlight-content">
+                <p class="tagline">@trip.Tagline</p>
+                <h2>@trip.Title</h2>
+                <p class="lead">Starting from ₹@trip.Price.ToString("N0") per person</p>
+                <a href="@Url.Action("Details", "Trip")" class="btn btn-spotlight">View Package Details</a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="container offer-section">
+    <h2 class="mb-4">Offers For You</h2>
+    <div class="row g-4">
+        @if (ViewBag.Offers != null)
+        {
+            @foreach (var offer in ViewBag.Offers)
+            {
+                <div class="col-md-4">
+                    <div class="card offer-card">
+                        <img src="@offer.ImageUrl" class="card-img-top" alt="@offer.Title">
+                        <div class="card-body">
+                            <span class="badge @offer.BadgeColor offer-badge">@offer.BadgeText</span>
+                            <h5 class="card-title mt-3">@offer.Title</h5>
+                            <p class="card-text text-muted small">@offer.Description</p>
+                            <a asp-controller="Packages" asp-action="Details" asp-route-id="@offer.Id" class="btn btn-link text-primary fw-bold p-0">BOOK NOW &raquo;</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="container offer-section">
+    <h2 class="mb-4">Handpicked Collections For You</h2>
+    <div class="collections-slider">
+        @if (ViewBag.Collections != null)
+        {
+            @foreach (var collection in ViewBag.Collections)
+            {
+                <div class="p-2">
+                    <div class="collection-card">
+                        <img src="@collection.ImageUrl" alt="@collection.Title">
+                        <div class="overlay">
+                            <span class="badge bg-light text-dark">@collection.BadgeText</span>
+                            <h5 class="mt-2">@collection.Title</h5>
+                            <p class="mb-0 small">@collection.Tagline</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // Your existing Tiny Slider for Collections
+            var slider = tns({
+                container: '.collections-slider',
+                items: 4, slideBy: 'page', autoplay: false, mouseDrag: true,
+                gutter: 15, nav: false, controls: true, controlsText: ['<', '>'],
+                edgePadding: 50,
+                responsive: {
+                    992: { items: 4, edgePadding: 50 },
+                    768: { items: 3, edgePadding: 30 },
+                    0: { items: 2, edgePadding: 20 }
+                }
+            });
+
+            // Your existing Flatpickr initialization
+            flatpickr("#departure-date", {
+                altInput: true,       // Shows a user-friendly date format
+                altFormat: "d-m-Y",   // e.g., "16-09-2025"
+                dateFormat: "Y-m-d",  // Format sent to the server
+                minDate: "today"      // Prevents selecting past dates
+            });
+
+        });
+    </script>
+} 

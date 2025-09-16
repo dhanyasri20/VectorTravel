@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TravelBookingSystem.Models.Flight>
+@{
+    ViewData["Title"] = ViewData["SearchTitle"] ?? "Flight Results";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">@ViewData["SearchTitle"]</h2>
+
+    @if (Model.Any())
+    {
+        @foreach (var flight in Model)
+        {
+            <div class="flight-card">
+                <div class="col-md-2 airline-logo">
+                    <img src="https://logo.clearbit.com/@(flight.Airline.Replace(" ", "").ToLower()).com" alt="@flight.Airline Logo" style="height: 40px; margin-bottom: 5px;" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x40?text=Logo';" />
+                    <div>@flight.Airline</div>
+                </div>
+
+                <div class="col-md-7 flight-details">
+                    <div class="row align-items-center text-center">
+                        <div class="col">
+                            <strong>@flight.DepartureTime.ToString("HH:mm")</strong>
+                            <div>@flight.DepartureCity</div>
+                        </div>
+                        <div class="col">
+                            <hr />
+                        </div>
+                        <div class="col">
+                            <strong>@flight.ArrivalTime.ToString("HH:mm")</strong>
+                            <div>@flight.ArrivalCity</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 price-section">
+                    <div class="price">₹ @flight.Price.ToString("N0")</div>
+                    <small>per adult</small>
+                    
+                    <form asp-controller="Flights" asp-action="Book" method="post" class="mt-2 w-100">
+                        <input type="hidden" name="flightId" value="@flight.Id" />
+                        <button type="submit" class="btn btn-primary w-100">Book Now</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            No flights found for the selected route and date.
+        </div>
+    }
+</div> 

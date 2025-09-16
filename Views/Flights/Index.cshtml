@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Search Flights";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Search for Flights ✈️</h1>
+    <p>Find the best deals for your next adventure.</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form asp-controller="Flights" asp-action="Search" method="post">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="departureCity">From</label>
+                        <input type="text" id="departureCity" name="departureCity" class="form-control" placeholder="e.g., Delhi" required />
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="arrivalCity">To</label>
+                        <input type="text" id="arrivalCity" name="arrivalCity" class="form-control" placeholder="e.g., Mumbai" required />
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> 

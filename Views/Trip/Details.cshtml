@@ -1,0 +1,148 @@
+﻿@model TravelBookingSystem.Models.Trip
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="package-header" style="background-image: url('@Model.ImageUrl');">
+    <div class="package-header-overlay">
+        <h1>@Model.Title</h1>
+        <p>@Model.Tagline</p>
+    </div>
+</div>
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+
+        <div class="col-lg-5">
+            <h3>Itinerary</h3>
+            <hr />
+            <div class="accordion" id="itineraryAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            Day 1: Arrival in Port Blair & Cellular Jail
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            Arrive at Port Blair airport and transfer to your hotel. Later, visit the historic Cellular Jail and enjoy the spectacular Light and Sound Show in the evening.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            Day 2: Havelock Island & Radhanagar Beach
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            Take a morning ferry to Havelock Island. Check into your beach resort and spend the afternoon at the world-renowned Radhanagar Beach, rated as one of the best beaches in Asia.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            Day 3: Elephant Beach & Snorkeling
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            Explore the vibrant coral reefs with a complimentary snorkeling session at Elephant Beach. The clear, turquoise waters are teeming with marine life. Return to Havelock for the evening.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                            Day 4: Neil Island Exploration
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            Travel to Neil Island, known for its relaxed vibe and beautiful, unnamed beaches. Visit Laxmanpur Beach for stunning sunset views.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                            Day 5: Natural Bridge & Return to Port Blair
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            Visit the Natural Bridge, a unique geological formation, before taking the ferry back to Port Blair. Enjoy a relaxed evening shopping for souvenirs.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                            Day 6: Ross Island & North Bay
+                        </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            Take a day trip to Ross Island, the former administrative headquarters, and North Bay, famous for its lighthouse and water activities.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven">
+                            Day 7: Departure
+                        </button>
+                    </h2>
+                    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#itineraryAccordion">
+                        <div class="accordion-body">
+                            After breakfast, you will be transferred to the Port Blair airport for your return journey, filled with wonderful memories of the Andaman Islands.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="sticky-top" style="top: 90px;">
+                <div class="booking-card">
+                    <div class="card-header">
+                        Trip Details
+                    </div>
+                    <div class="card-body">
+                        <p class="price">₹ @Model.Price.ToString("N0")</p>
+                        <p class="price-tagline">per person, including taxes</p>
+
+                        <h6>Package Inclusions</h6>
+                        <ul class="inclusions-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Return Flights</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 4-Star Hotel Stays</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Daily Breakfast</li>
+                            <li><i class="bi bi-check-circle-fill"></i> All Ferry Transfers</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Sightseeing Tours</li>
+                        </ul>
+                        <div class="d-grid mt-4">
+                            <a href="#" class="btn btn-book-now btn-lg">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h3>Photo Gallery</h3>
+            <hr />
+            <div class="photo-gallery">
+                @if (Model.GalleryImageUrls != null)
+                {
+                    @foreach (var imageUrl in Model.GalleryImageUrls)
+                    {
+                        <img src="@imageUrl" class="img-fluid" alt="Andaman Gallery Image">
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</div> 
