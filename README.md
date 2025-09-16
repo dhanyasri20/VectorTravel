@@ -1,4 +1,4 @@
-<img width="1893" height="903" alt="Screenshot 2025-09-16 235458" src="https://github.com/user-attachments/assets/39824526-cf00-4948-87b6-ed274a45c37a" /># VectorTravel <img width="500" height="500" alt="VectorTravellogo" src="https://github.com/user-attachments/assets/5df120f9-6ee9-45c6-b2a1-c823116a75da" /> 
+VectorTravel <img width="300" height="300" alt="VectorTravellogo" src="https://github.com/user-attachments/assets/5df120f9-6ee9-45c6-b2a1-c823116a75da" /> 
 ### Your Direction to the World.
 
 ![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
