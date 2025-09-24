@@ -8,9 +8,9 @@ namespace TravelBookingSystem.Controllers
     {
         public IActionResult Index()
         {
-            var holidayPackages = new List<HolidayPackage>
+            var holidayPackages = new List<HolidayPackages>
             {
-                new HolidayPackage
+                new HolidayPackages
                 {
                     Id = 1,
                     Title = "Romantic Gateway to the Maldives",
@@ -19,7 +19,7 @@ namespace TravelBookingSystem.Controllers
                     BadgeText = "HOLIDAYS",      // These properties are not on the HolidayPackage model
                     BadgeColor = "bg-primary"    
                 },
-                new HolidayPackage
+                new HolidayPackages
                 { 
                     Id = 2,
                     Title = "Enchanting Week in Switzerland",
@@ -28,7 +28,7 @@ namespace TravelBookingSystem.Controllers
                     BadgeText = "INT'L FLIGHTS",
                     BadgeColor = "bg-success"
                 },
-                new HolidayPackage
+                new HolidayPackages
                 {
                     Id = 3,
                     Title = "Vibrant Exploration of Dubai",

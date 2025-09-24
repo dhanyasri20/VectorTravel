@@ -16,6 +16,7 @@ builder.Services.AddDefaultIdentity<TravelBookingSystemUser>(options => options.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+DbInitializer.Seed(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -42,4 +43,4 @@ app.MapControllerRoute(
 // Added Razor Pages for Identity UI
 app.MapRazorPages();
 
-app.Run();
+app.Run(); 

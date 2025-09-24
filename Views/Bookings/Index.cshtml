@@ -4,7 +4,7 @@
     ViewData["Title"] = "My Bookings";
 }
 
-<div class="container mt-4">
+<div class="container my-5">
     <h1 class="mb-4">@ViewData["Title"]</h1>
 
     @if (Model.Any())
@@ -12,23 +12,28 @@
         <div class="list-group">
             @foreach (var booking in Model)
             {
-                <div class="list-group-item list-group-item-action flex-column align-items-start mb-3 shadow-sm">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">@booking.Flight.DepartureCity to @booking.Flight.ArrivalCity</h5>
-                        <small>Booked on: @booking.BookingDate.ToString("dd MMM yyyy")</small>
-                    </div>
-                    <p class="mb-1">
-                        <strong>Airline:</strong> @booking.Flight.Airline (@booking.Flight.FlightNumber) <br />
-                        <strong>Departure:</strong> @booking.Flight.DepartureTime.ToString("f") <br />
-                        <strong>Arrival:</strong> @booking.Flight.ArrivalTime.ToString("f")
-                    </p>
-                    <div class="d-flex w-100 justify-content-between align-items-center mt-2">
-                        <span class="fw-bold fs-5">Price: ₹ @booking.Flight.Price.ToString("N0")</span>
-                        
-                        <form asp-controller="Bookings" asp-action="Cancel" method="post">
-                            <input type="hidden" name="bookingId" value="@booking.Id" />
-                            <button type="submit" class="btn btn-danger btn-sm">Cancel Booking</button>
-                        </form>
+                <div class="list-group-item mb-3 p-4 shadow-sm border-0 rounded">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@booking.Flight.DepartureCity to @booking.Flight.ArrivalCity</h5>
+                                <small class="text-muted">Booked: @booking.BookingDate.ToString("dd MMM yyyy")</small>
+                            </div>
+                            <p class="mb-2">
+                                <strong>Airline:</strong> @booking.Flight.Airline (@booking.Flight.FlightNumber)
+                            </p>
+                            <div class="d-flex justify-content-between text-muted small">
+                                <span><strong>Departs:</strong> @booking.Flight.DepartureTime.ToString("f")</span>
+                                <span><strong>Arrives:</strong> @booking.Flight.ArrivalTime.ToString("f")</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            <h4 class="fw-bold text-primary mb-2">₹ @booking.Amount.ToString("N0")</h4>
+
+                            <a asp-action="Ticket" asp-controller="Bookings" asp-route-bookingId="@booking.Id" class="btn btn-primary">
+                                <i class="bi bi-ticket-perforated-fill"></i> View E-Ticket
+                            </a>
+                        </div>
                     </div>
                 </div>
             }

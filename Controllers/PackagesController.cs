@@ -7,14 +7,14 @@ namespace TravelBookingSystem.Controllers
 {
     public class PackagesController : Controller
     {
-        private readonly List<HolidayPackage> _packages;
+        private readonly List<HolidayPackages> _packages;
 
         public PackagesController()
         {
             // ## FINAL VERSION ## With complete itineraries and your original Pexels image links.
-            _packages = new List<HolidayPackage>
+            _packages = new List<HolidayPackages>
             {
-                new HolidayPackage
+                new HolidayPackages
                 {
                     Id = 1, 
                     Title = "Romantic Gateway to the Maldives",
@@ -32,7 +32,7 @@ namespace TravelBookingSystem.Controllers
                         new ItineraryDay { Day = 5, Title = "Departure", Description = "Enjoy a final breakfast with ocean views before your speedboat transfer back to Malé for your flight home." }
                     }
                 },
-                new HolidayPackage
+                new HolidayPackages
                 {
                     Id = 2,
                     Title = "Enchanting Week in Switzerland",
@@ -52,7 +52,7 @@ namespace TravelBookingSystem.Controllers
                         new ItineraryDay { Day = 7, Title = "Departure", Description = "After breakfast, proceed to Geneva Airport for your flight back home, filled with incredible memories." }
                     }
                 },
-                new HolidayPackage
+                new HolidayPackages 
                 {
                     Id = 3,
                     Title = "Vibrant Exploration of Dubai",

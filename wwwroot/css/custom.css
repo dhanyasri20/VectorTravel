@@ -36,7 +36,7 @@
     justify-content: center;
     color: white;
     text-align: center;
-    margin-top: -70px;
+    margin-top: -70px; 
 }
 
     .hero-section::before {
@@ -484,4 +484,4 @@ body {
     .navbar .nav-link {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
-    } 
+    }

@@ -1,0 +1,150 @@
+﻿@model IEnumerable<TravelBookingSystem.Models.Package>
+@{
+    ViewData["Title"] = "Holiday Packages";
+}
+
+<style>
+    /* Hero Header */
+    .page-header {
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.pexels.com/photos/29988777/pexels-photo-29988777.jpeg') no-repeat center center;
+        background-size: cover;
+        padding: 8rem 0;
+        color: white;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.7); 
+    }
+
+    /* Interactive Quiz Section */
+    .trip-finder {
+        background-color: #f8f9fa;
+        padding: 3rem 0;
+        text-align: center;
+    }
+    .trip-finder-btn {
+        border: 2px solid #dee2e6;
+        background-color: #fff;
+        color: #495057;
+        padding: 1rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        margin: 0.5rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    .trip-finder-btn:hover {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Category Filter Tabs */
+    .category-nav .nav-link { color: #6c757d; font-weight: 600; }
+    .category-nav .nav-link.active { color: #0d6efd; border-bottom: 3px solid #0d6efd; background-color: transparent !important; }
+    
+    /* Package Card Design */
+    .package-card {
+        transition: transform .2s ease-out, box-shadow .2s ease-out;
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+    .package-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,.15);
+    }
+    .package-card .card-img-top { height: 220px; object-fit: cover; }
+    .card-badge { position: absolute; top: 15px; left: 15px; background: #dc3545; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: 600; }
+</style>
+
+<div class="page-header text-center">
+    <h1 class="display-3 fw-bold">Unforgettable Journeys Await</h1>
+    <p class="lead fs-4">Let's find the perfect holiday package for you.</p>
+</div>
+
+<div id="trip-finder" class="trip-finder">
+    <div class="container">
+        <h2 class="mb-3">Find Your Perfect Trip</h2>
+        <p class="text-muted mb-4">I'm looking for an escape that's...</p>
+        <div>
+            <a href="#packages-gallery" data-category="Honeymoon" class="trip-finder-btn">Relaxing & Romantic 🏖️</a>
+            <a href="#packages-gallery" data-category="Adventure" class="trip-finder-btn">Full of Adventure 🏔️</a>
+            <a href="#packages-gallery" data-category="Cultural" class="trip-finder-btn">Culturally Rich 🕌</a>
+        </div>
+    </div>
+</div>
+
+
+<div id="packages-gallery" class="container my-5">
+    <ul class="nav nav-pills justify-content-center mb-5 category-nav">
+        <li class="nav-item">
+            <a class="nav-link @(ViewBag.SelectedCategory == null ? "active" : "")" asp-action="Index" asp-controller="HolidayPackages">All Packages</a>
+        </li>
+
+        @{
+            // This cast fixes the error by telling the compiler the type of ViewBag.Categories
+            var categories = ViewBag.Categories as IEnumerable<string> ?? Enumerable.Empty<string>();
+        }
+
+        @foreach (var cat in categories.Where(c => c != null))
+        {
+            <li class="nav-item">
+                <a class="nav-link @(ViewBag.SelectedCategory == cat ? "active" : "")" asp-action="Index" asp-controller="HolidayPackages" asp-route-category="@cat">@cat</a>
+            </li>
+        }
+    </ul> 
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col text-center">
+                <p class="lead">No packages found for this category.</p>
+            </div>
+        }
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <a asp-action="Details" asp-controller="HolidayPackages" asp-route-id="@item.Id" class="text-decoration-none text-dark">
+                    <div class="card package-card h-100 shadow-sm">
+                        <div class="position-relative">
+                            <img src="@item.ImageUrl" class="card-img-top" alt="@item.Title">
+                            @if (!string.IsNullOrEmpty(item.Tag))
+                            {
+                                <span class="card-badge">@item.Tag</span>
+                            }
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text text-muted mb-2">@item.Duration</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 pb-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <small class="text-muted">Starting from</small>
+                                <span class="d-block fw-bold fs-5 text-primary">₹@item.Price.ToString("N0")</span>
+                            </div>
+                            <i class="bi bi-arrow-right-circle fs-3 text-primary"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div> 
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // This script handles the interactive trip finder buttons
+            $('.trip-finder-btn').on('click', function(e) {
+                e.preventDefault(); // Stop the link from jumping immediately
+                var category = $(this).data('category');
+                
+                // Construct the URL to filter the packages
+                var url = '@Url.Action("Index", "HolidayPackages")?category=' + category;
+                
+                // Go to the filtered URL
+                window.location.href = url;
+            });
+        });
+    </script>
+}  

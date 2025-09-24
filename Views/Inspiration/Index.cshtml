@@ -1,0 +1,241 @@
+﻿@model List<TravelBookingSystem.Models.Inspiration>
+@{
+    ViewData["Title"] = "Travel Inspiration";
+    var distinctCategories = Model.Select(i => i.Category).Distinct().ToList();
+}
+
+<style>
+    /* --- Dark Theme & Typography --- */
+    .inspiration-page {
+        background-color: #121212;
+        padding: 4rem 0;
+        color: #e0e0e0;
+    }
+    .inspiration-page .display-3 {
+        font-weight: 700;
+        color: #ffffff;
+    }
+    .inspiration-page .lead {
+        color: #a0a0a0;
+    }
+
+    /* --- Filter Buttons --- */
+    .filter-buttons .btn {
+        margin: 0 8px 10px 8px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        padding: 8px 20px;
+        border-color: #444;
+        color: #a0a0a0;
+    }
+    .filter-buttons .btn:hover:not(.active) {
+        background-color: #282828;
+        border-color: #555;
+        color: #ffffff;
+    }
+    .filter-buttons .btn.active {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13, 110, 253, 0.2);
+    }
+
+    /* --- Pinterest-Style Masonry Grid --- */
+    .masonry-grid {
+        column-count: 3;
+        column-gap: 1.5rem;
+    }
+    .masonry-item {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        background-color: #1e1e1e;
+        transition: transform 0.4s ease, box-shadow 0.4s ease; /* Updated transition */
+        cursor: pointer;
+        /* Animation Start State */
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    .masonry-item.visible { /* Animation End State */
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .masonry-item:hover {
+        transform: translateY(-8px) scale(1.02); /* Lift and slightly enlarge */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .masonry-item.hide { display: none; }
+
+    .masonry-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    .masonry-item:hover img {
+        transform: scale(1.1); /* Zoom image on hover */
+    }
+    
+    /* --- NEW AESTHETIC HOVER OVERLAY --- */
+    .masonry-item .info-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem;
+        background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent);
+        color: white;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    }
+    .info-overlay h5 {
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+    }
+    .info-overlay .location {
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+    .info-overlay .description {
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        max-height: 0; /* Hidden by default */
+        opacity: 0;    /* Hidden by default */
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, opacity 0.4s ease-out;
+    }
+    .masonry-item:hover .info-overlay .description {
+        max-height: 100px; /* Revealed on hover */
+        opacity: 1;       /* Revealed on hover */
+    }
+
+    /* --- Modal Styling --- */
+    .modal-content { background-color: #1e1e1e; color: #e0e0e0; border: 1px solid #333; border-radius: 1rem; }
+    .modal-header { border-bottom: 1px solid #333; }
+    .modal-header .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+    .modal-body img { border-radius: 0.5rem; }
+
+    /* Responsive adjustments */
+    @@media (max-width: 992px) { .masonry-grid { column-count: 2; } }
+    @@media (max-width: 576px) { .masonry-grid { column-count: 1; } }
+</style>
+
+<div class="inspiration-page">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-3">Your Next Adventure Awaits</h1>
+            <p class="lead">Explore breathtaking landscapes and vibrant cultures from around the globe.</p>
+        </div>
+
+        <div class="filter-buttons text-center mb-5">
+            <button class="btn btn-outline-primary active" data-filter="all">All Inspirations</button>
+            @foreach (var category in distinctCategories)
+            {
+                <button class="btn btn-outline-primary" data-filter="@category">@category</button>
+            }
+        </div>
+
+        <div class="masonry-grid">
+            @foreach (var item in Model)
+            {
+                <div class="masonry-item" data-category="@item.Category"
+                     data-bs-toggle="modal" data-bs-target="#inspirationModal"
+                     data-image-url="@item.ImageUrl"
+                     data-title="@item.Title"
+                     data-location="@item.Location"
+                     data-description="@item.Description">
+
+                    <img src="@item.ImageUrl" alt="@item.Title" />
+                    <div class="info-overlay">
+                        <h5>@item.Title</h5>
+                        <p class="location">@item.Location</p>
+                        <p class="description">@item.Description</p> </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="inspirationModal" tabindex="-1" aria-labelledby="inspirationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="modal-image" src="" class="img-fluid w-100 mb-3" alt="Modal Image">
+                <p id="modal-location" class="text-muted"></p>
+                <p id="modal-description"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- NEW: Fun "Fade In on Scroll" Animation ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Add a delay based on the item's position for a staggered effect
+                        entry.target.style.transitionDelay = `${index * 50}ms`;
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Stop observing after it's visible
+                    }
+                });
+            }, { threshold: 0.1 }); // Trigger when 10% of the item is visible
+
+            const galleryItemsForAnimation = document.querySelectorAll('.masonry-item');
+            galleryItemsForAnimation.forEach(item => observer.observe(item));
+
+
+            // --- Filtering Logic ---
+            const filterButtons = document.querySelectorAll('.filter-buttons .btn');
+            const allGalleryItems = document.querySelectorAll('.masonry-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    const filter = this.getAttribute('data-filter');
+
+                    allGalleryItems.forEach(item => {
+                        item.classList.add('hide'); // Hide all items initially
+                    });
+
+                    // Use a timeout to allow the "hide" transition to finish before showing new items
+                    setTimeout(() => {
+                        allGalleryItems.forEach(item => {
+                            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                                item.classList.remove('hide');
+                            }
+                        });
+                    }, 10); // A small delay is enough
+                });
+            });
+
+
+            // --- Modal Population Logic ---
+            const inspirationModal = document.getElementById('inspirationModal');
+            inspirationModal.addEventListener('show.bs.modal', function (event) {
+                const card = event.relatedTarget;
+                const imageUrl = card.getAttribute('data-image-url');
+                const title = card.getAttribute('data-title');
+                const location = card.getAttribute('data-location');
+                const description = card.getAttribute('data-description');
+
+                inspirationModal.querySelector('#modal-title').textContent = title;
+                inspirationModal.querySelector('#modal-image').src = imageUrl;
+                inspirationModal.querySelector('#modal-location').textContent = location;
+                inspirationModal.querySelector('#modal-description').textContent = description;
+            });
+        });
+    </script> 
+}

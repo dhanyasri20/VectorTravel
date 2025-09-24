@@ -12,16 +12,23 @@ namespace TravelBookingSystem.Data
         {
         }
 
+        public DbSet<Seat> Seats { get; set; }
         public DbSet<Flight> Flights { get; set; }
-        public DbSet<Booking> Bookings { get; set; } // This line is essential
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<Enquiry> Enquiries { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Inspiration> Inspirations { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Flight>()
-                .Property(f => f.Price)
-                .HasColumnType("decimal(18, 2)");
+            // This configuration tells the database the exact precision for decimal types,
+            // which is a professional best practice and removes the warnings.
+            builder.Entity<Flight>().Property(f => f.Price).HasColumnType("decimal(18, 2)");
+            builder.Entity<Booking>().Property(b => b.Amount).HasColumnType("decimal(18, 2)");
+            builder.Entity<Package>().Property(p => p.Price).HasColumnType("decimal(18, 2)");
         }
     }
 } 

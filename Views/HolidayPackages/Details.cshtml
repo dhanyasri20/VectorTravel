@@ -1,0 +1,263 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TravelBookingSystem.Areas.Identity.Data
+
+@inject UserManager<TravelBookingSystemUser> UserManager
+
+@model TravelBookingSystem.Models.Package
+@{
+    ViewData["Title"] = Model.Title;
+    var currentUser = await UserManager.GetUserAsync(User);
+    var averageRating = Model.Reviews != null && Model.Reviews.Any() ? Model.Reviews.Average(r => r.Rating) : 0;
+    var totalReviews = Model.Reviews?.Count() ?? 0;
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<style>
+    .package-hero {
+        height: 60vh;
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('@Model.ImageUrl') no-repeat center center;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    }
+
+        .package-hero .duration-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+    .sidebar-card {
+        position: sticky;
+        top: 90px;
+    }
+
+    .inclusion-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .inclusion-icon {
+        font-size: 1.5rem;
+        color: #0d6efd;
+        margin-right: 1rem;
+        width: 30px;
+    }
+
+    .modal-header {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+        .modal-header .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    /* Styles for the reviews and star ratings */
+    .rating-summary {
+        font-size: 1.2rem;
+    }
+
+    .star-rating .bi-star-fill {
+        color: #ffc107;
+    }
+
+    .star-rating .bi-star {
+        color: #e0e0e0;
+    }
+
+    .review-card {
+        border-bottom: 1px solid #eee;
+    }
+
+    .rating-form .star-rating-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+        .rating-form .star-rating-input input[type="radio"] {
+            display: none;
+        }
+
+        .rating-form .star-rating-input label {
+            font-size: 2rem;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+            .rating-form .star-rating-input input[type="radio"]:checked ~ label,
+            .rating-form .star-rating-input label:hover,
+            .rating-form .star-rating-input label:hover ~ label {
+                color: #ffc107;
+            }
+</style>
+
+<div class="package-hero">
+    <div class="duration-badge">@Model.Duration</div>
+    <h1 class="display-3 fw-bold">@Model.Title</h1>
+    <p class="lead fs-4"><i class="bi bi-geo-alt-fill"></i> @Model.Destination</p>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="mb-5">
+                <h3>Trip Overview</h3>
+                <p class="text-muted">@Model.Description</p>
+            </div>
+
+            <div class="mb-5">
+                <h3>What's Included</h3>
+                <div class="row mt-3">
+                    <div class="col-md-6 inclusion-item"><i class="bi bi-airplane-fill inclusion-icon"></i> Return Flights</div>
+                    <div class="col-md-6 inclusion-item"><i class="bi bi-building-fill inclusion-icon"></i> 4-Star Hotel Stays</div>
+                    <div class="col-md-6 inclusion-item"><i class="bi bi-bus-front-fill inclusion-icon"></i> Airport Transfers</div>
+                    <div class="col-md-6 inclusion-item"><i class="bi bi-cup-straw inclusion-icon"></i> Daily Breakfast</div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <h3>Reviews & Ratings</h3>
+                @if (totalReviews > 0)
+                {
+                    <div class="d-flex align-items-center mb-3 rating-summary">
+                        <span class="fw-bold fs-4 me-2">@averageRating.ToString("0.0")</span>
+                        <div class="star-rating me-2">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <i class="bi @(i <= averageRating ? "bi-star-fill" : "bi-star")"></i>
+                            }
+                        </div>
+                        <span class="text-muted">based on @totalReviews review(s)</span>
+                    </div>
+                    @foreach (var review in Model.Reviews.OrderByDescending(r => r.ReviewDate))
+                    {
+                        <div class="review-card p-3 mb-2">
+                            <div class="star-rating mb-1">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="bi @(i <= review.Rating ? "bi-star-fill" : "bi-star")"></i>
+                                }
+                            </div>
+                            <p>@review.Comment</p>
+                            <small class="text-muted">by @review.UserName on @review.ReviewDate.ToString("dd MMM yyyy")</small>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">Be the first one to review this package!</p>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="card mt-4 rating-form">
+                        <div class="card-body">
+                            <h5 class="card-title">Leave a Review</h5>
+                            <form asp-action="AddReview" asp-controller="HolidayPackages" method="post">
+                                <input type="hidden" name="packageId" value="@Model.Id" />
+                                <div class="mb-3">
+                                    <label class="form-label">Your Rating</label>
+                                    <div class="star-rating-input">
+                                        <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars">★</label>
+                                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+                                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+                                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+                                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Your Comment</label>
+                                    <textarea name="comment" class="form-control" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm sidebar-card">
+                <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                        <small class="text-muted">Starting from</small>
+                        <h2 class="fw-bold text-primary my-1">₹@Model.Price.ToString("N0")</h2>
+                        <small class="text-muted">per person</small>
+                    </div>
+                    <hr>
+                    <h5 class="text-center">Interested in this package?</h5>
+                    <p class="text-center text-muted small">Our travel expert will call you back within 24 hours.</p>
+                    <div class="d-grid mt-3">
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enquiryModal">
+                            Request a Callback
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="enquiryModalLabel"><i class="bi bi-telephone-outbound-fill me-2"></i>Request a Callback</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="SubmitEnquiry" asp-controller="HolidayPackages" method="post">
+                <div class="modal-body">
+                    <p class="text-muted">You're enquiring for: <strong>@Model.Title</strong></p>
+                    <input type="hidden" name="packageName" value="@Model.Title" />
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="fullName" value="@(currentUser != null ? $"{currentUser.FirstName} {currentUser.LastName}" : "")" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name="email" value="@(currentUser?.Email)" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" name="phoneNumber" value="@(currentUser?.PhoneNumber)" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary w-100">Submit Enquiry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 
