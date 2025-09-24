@@ -17,17 +17,18 @@ A comprehensive flight and holiday package booking platform built with ASP.NET C
 ---
 ## 📸 Screenshots
 
-| Homepage                                       | Inspiration Gallery                                  |HolidayPackage Page                                 |
-| ---------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------- |
-|<img width="1891" height="896" alt="image" src="https://github.com/user-attachments/assets/16e2a1d3-0573-4b89-8850-0d22afaac3cf" />
+ ## Homepage                                                                              
+<img width="1891" height="896" alt="image" src="https://github.com/user-attachments/assets/16e2a1d3-0573-4b89-8850-0d22afaac3cf" />
 <img width="1914" height="902" alt="image" src="https://github.com/user-attachments/assets/56be5dae-bba8-45a7-a934-879c83dbae24" />
-<img width="1909" height="906" alt="image" src="https://github.com/user-attachments/assets/374e0c96-d4bc-4e78-9ea0-13bcab2708b2" />|
+<img width="1909" height="906" alt="image" src="https://github.com/user-attachments/assets/374e0c96-d4bc-4e78-9ea0-13bcab2708b2" />
 
-|![Inspiration Gallery]<img width="1913" height="911" alt="image" src="https://github.com/user-attachments/assets/c8382374-7b87-4f7d-ab00-51c9a80d3c10" />
-<img width="1899" height="901" alt="image" src="https://github.com/user-attachments/assets/c1a68058-98fa-4763-a13d-00e973065f68" /> |
+## Inspiration Gallery       
+<img width="1913" height="911" alt="image" src="https://github.com/user-attachments/assets/c8382374-7b87-4f7d-ab00-51c9a80d3c10" />
+<img width="1899" height="901" alt="image" src="https://github.com/user-attachments/assets/c1a68058-98fa-4763-a13d-00e973065f68" /> 
 
-|![Holiday Package Page]<img width="1898" height="915" alt="image" src="https://github.com/user-attachments/assets/f4fb2338-4d12-491d-b027-e6e86a5fa44a" />
-<img width="1905" height="911" alt="image" src="https://github.com/user-attachments/assets/94db0bdc-f082-4bf5-86a4-cd41b5f4571b" />|
+## HolidayPackages Page  
+<img width="1898" height="915" alt="image" src="https://github.com/user-attachments/assets/f4fb2338-4d12-491d-b027-e6e86a5fa44a" />
+<img width="1905" height="911" alt="image" src="https://github.com/user-attachments/assets/94db0bdc-f082-4bf5-86a4-cd41b5f4571b" />
 
 ## ✨ Key Features
 
